@@ -60,8 +60,8 @@ dependencies {
    implementation(kotlin("reflect"))
    implementation(kotlin("stdlib-common"))
 
-   implementation("org.apache.logging.log4j:log4j-api:$log4j2Ver")
-   implementation("org.apache.logging.log4j:log4j-api-kotlin:$log4jKotlinApiVer")
+   // implementation("org.apache.logging.log4j:log4j-api:$log4j2Ver")
+   // implementation("org.apache.logging.log4j:log4j-api-kotlin:$log4jKotlinApiVer")
 
    // ***********************************************
    // *** Testing
@@ -76,19 +76,6 @@ dependencies {
       // Eclipse needs this -maybe for JUnit?
       testRuntimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Ver")
    }
-
-   /*
-   testImplementation("org.junit.jupiter:junit-jupiter:$junitVer")
-   testRuntime("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVer") 
-   */
-   val usingLog4jXmlAppenders = true
-      if (usingLog4jXmlAppenders) {
-         val jacksonVer = "2.9.9"
-         // Required for log4j2, *only* when we use XMLLayout
-         testRuntimeOnly("com.fasterxml.jackson.core:jackson-core:$jacksonVer")
-         testRuntimeOnly("com.fasterxml.jackson.core:jackson-databind:$jacksonVer")
-         testRuntimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVer")
-      }   
 }
 
 if( supportEclipseJUnitWorkaround ) {

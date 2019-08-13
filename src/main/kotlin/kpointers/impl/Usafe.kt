@@ -22,9 +22,6 @@ package com.softwarementors.kpointers.impl;
 
 import java.lang.reflect.Field;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import sun.misc.Unsafe;
 
 val unsafe : Unsafe = initUnsafe()
