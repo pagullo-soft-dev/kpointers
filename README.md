@@ -59,6 +59,9 @@ There is a _third advantage_ to using raw memory: very advanced applications can
 
 Yes, these are scenarios that will not arise in everyday scenarios, unless you are in charge of writing one of those high performance libraries we mere mortals use. But when you need it, you need something like **KPointers** badly.
 
+Finally, there is _fourth advantage_: Java arrays, a basic foundation for many structures, are limited in length to ``Integer.MAX_INT``,
+but **KPointers** can allocate much bigger arrays, being limited only by the maximum memory that can be allocated at a given time -the way it should be. Again, this might be relevant only for massive data, but the feature is there.
+
 ## Running the examples
 
 To see the list of existing examples you can run from the command line, execute ``gradlew tasks --group Application`` from the command line
