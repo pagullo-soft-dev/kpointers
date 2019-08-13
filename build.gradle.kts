@@ -99,8 +99,10 @@ fun exampleMainClass( exampleName : String) : String {
 }
 
 application {
-   // First example in examples list will be the one to be run by 'run' taks 
-   mainClassName = exampleMainClass( examples[0])
+   if( examples.size > 0 ) {
+      // First example in examples list will be the one to be run by 'run' taks 
+      mainClassName = exampleMainClass( examples[0])
+   }
 }
 
 tasks {
