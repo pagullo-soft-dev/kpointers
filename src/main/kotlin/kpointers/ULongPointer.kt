@@ -18,6 +18,10 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/**************************************************************************
+File generated automatically with fmgen: DO NOT modify it manually
+**************************************************************************/
+
 package com.softwarementors.kpointers
 
 import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
@@ -27,31 +31,31 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toULongPointer() : ULongPointer {
+fun Pointer.toULongPointer(): ULongPointer {
    return ULongPointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class ULongPointer(private val address : Pointer) {
-   fun toPointer() : Pointer = address
+public inline class ULongPointer(private val address: Pointer) {
+   fun toPointer(): Pointer = address
 
-   var it : ULong get() { assert(!isNull()); return memAccess.get(this) }
+   var it: ULong get() { assert(!isNull()); return memAccess.get(this) }
       set(v: ULong) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i : PointerOffset) : ULong = memAccess.get(this + i)
-   operator fun set(i : PointerOffset, v : ULong) : Unit = memAccess.put(this + i, v)
+   operator fun get(i: PointerOffset): ULong = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: ULong): Unit = memAccess.put(this + i, v)
 
-   fun isNull() : Boolean = address == NULL
-   operator fun not() : Boolean = address == NULL
-   operator fun inc() : ULongPointer = ULongPointer(address + (1L*8))
-   operator fun dec() : ULongPointer = ULongPointer(address - (1L*8))           
-   operator fun plus(v : PointerOffset) : ULongPointer = ULongPointer(address + (v*8))
-   operator fun minus(v : PointerOffset) : ULongPointer = ULongPointer(address - (v*8))   
-   operator fun minus(v : ULongPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   operator fun compareTo( p : ULongPointer ) : Int = this.address.compareTo( p.address)   
+   fun isNull(): Boolean = address == NULL
+   operator fun not(): Boolean = address == NULL
+   operator fun inc(): ULongPointer = ULongPointer(address + (1L*8))
+   operator fun dec(): ULongPointer = ULongPointer(address - (1L*8))           
+   operator fun plus(v: PointerOffset): ULongPointer = ULongPointer(address + (v*8))
+   operator fun minus(v: PointerOffset): ULongPointer = ULongPointer(address - (v*8))   
+   operator fun minus(v: ULongPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
+   operator fun compareTo( p: ULongPointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateULongPointerArray( itemCount : Size, zeroMem : Boolean = PrimitiveArraysAllocator.zeroMem ) : ULongPointer {
+fun PrimitiveArraysAllocator.allocateULongPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): ULongPointer {
    assert(itemCount > 0L)
    
    val mem = this.rawAllocator.allocate( itemCount, 8L, zeroMem )
@@ -59,7 +63,7 @@ fun PrimitiveArraysAllocator.allocateULongPointerArray( itemCount : Size, zeroMe
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray : ULongPointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: ULongPointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )

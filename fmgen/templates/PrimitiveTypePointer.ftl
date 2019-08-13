@@ -31,39 +31,39 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toFloatPointer(): FloatPointer {
-   return FloatPointer(this)
+fun Pointer.to${primitive_type}Pointer(): ${primitive_type}Pointer {
+   return ${primitive_type}Pointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class FloatPointer(private val address: Pointer) {
+public inline class ${primitive_type}Pointer(private val address: Pointer) {
    fun toPointer(): Pointer = address
 
-   var it: Float get() { assert(!isNull()); return memAccess.get(this) }
-      set(v: Float) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i: PointerOffset): Float = memAccess.get(this + i)
-   operator fun set(i: PointerOffset, v: Float): Unit = memAccess.put(this + i, v)
+   var it: ${primitive_type} get() { assert(!isNull()); return memAccess.get(this) }
+      set(v: ${primitive_type}) { assert(!isNull()); memAccess.put(this, v) }
+   operator fun get(i: PointerOffset): ${primitive_type} = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: ${primitive_type}): Unit = memAccess.put(this + i, v)
 
    fun isNull(): Boolean = address == NULL
    operator fun not(): Boolean = address == NULL
-   operator fun inc(): FloatPointer = FloatPointer(address + (1L*4))
-   operator fun dec(): FloatPointer = FloatPointer(address - (1L*4))           
-   operator fun plus(v: PointerOffset): FloatPointer = FloatPointer(address + (v*4))
-   operator fun minus(v: PointerOffset): FloatPointer = FloatPointer(address - (v*4))   
-   operator fun minus(v: FloatPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   operator fun compareTo( p: FloatPointer ): Int = this.address.compareTo( p.address)   
+   operator fun inc(): ${primitive_type}Pointer = ${primitive_type}Pointer(address + (1L*${size_bytes}))
+   operator fun dec(): ${primitive_type}Pointer = ${primitive_type}Pointer(address - (1L*${size_bytes}))           
+   operator fun plus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address + (v*${size_bytes}))
+   operator fun minus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address - (v*${size_bytes}))   
+   operator fun minus(v: ${primitive_type}Pointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / ${size_bytes}
+   operator fun compareTo( p: ${primitive_type}Pointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateFloatPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): FloatPointer {
+fun PrimitiveArraysAllocator.allocate${primitive_type}PointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): ${primitive_type}Pointer {
    assert(itemCount > 0L)
    
-   val mem = this.rawAllocator.allocate( itemCount, 4L, zeroMem )
-   return FloatPointer(mem)
+   val mem = this.rawAllocator.allocate( itemCount, ${size_bytes}L, zeroMem )
+   return ${primitive_type}Pointer(mem)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray: FloatPointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: ${primitive_type}Pointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )

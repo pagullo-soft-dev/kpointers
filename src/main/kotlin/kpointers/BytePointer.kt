@@ -18,6 +18,10 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/**************************************************************************
+File generated automatically with fmgen: DO NOT modify it manually
+**************************************************************************/
+
 package com.softwarementors.kpointers
 
 import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
@@ -27,31 +31,31 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toBytePointer() : BytePointer {
+fun Pointer.toBytePointer(): BytePointer {
    return BytePointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class BytePointer(private val address : Pointer) {
-   fun toPointer() : Pointer = address
+public inline class BytePointer(private val address: Pointer) {
+   fun toPointer(): Pointer = address
 
-   var it : Byte get() { assert(!isNull()); return memAccess.get(this) }
+   var it: Byte get() { assert(!isNull()); return memAccess.get(this) }
       set(v: Byte) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i : PointerOffset) : Byte = memAccess.get(this + i)
-   operator fun set(i : PointerOffset, v : Byte) : Unit = memAccess.put(this + i, v)
+   operator fun get(i: PointerOffset): Byte = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: Byte): Unit = memAccess.put(this + i, v)
 
-   fun isNull() : Boolean = address == NULL
-   operator fun not() : Boolean = address == NULL
-   operator fun inc() : BytePointer = BytePointer(address + (1L*1))
-   operator fun dec() : BytePointer = BytePointer(address - (1L*1))           
-   operator fun plus(v : PointerOffset) : BytePointer = BytePointer(address + (v*1))
-   operator fun minus(v : PointerOffset) : BytePointer = BytePointer(address - (v*1))   
-   operator fun minus(v : BytePointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
-   operator fun compareTo( p : BytePointer ) : Int = this.address.compareTo( p.address)   
+   fun isNull(): Boolean = address == NULL
+   operator fun not(): Boolean = address == NULL
+   operator fun inc(): BytePointer = BytePointer(address + (1L*1))
+   operator fun dec(): BytePointer = BytePointer(address - (1L*1))           
+   operator fun plus(v: PointerOffset): BytePointer = BytePointer(address + (v*1))
+   operator fun minus(v: PointerOffset): BytePointer = BytePointer(address - (v*1))   
+   operator fun minus(v: BytePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
+   operator fun compareTo( p: BytePointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateBytePointerArray( itemCount : Size, zeroMem : Boolean = PrimitiveArraysAllocator.zeroMem ) : BytePointer {
+fun PrimitiveArraysAllocator.allocateBytePointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): BytePointer {
    assert(itemCount > 0L)
    
    val mem = this.rawAllocator.allocate( itemCount, 1L, zeroMem )
@@ -59,7 +63,7 @@ fun PrimitiveArraysAllocator.allocateBytePointerArray( itemCount : Size, zeroMem
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray : BytePointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: BytePointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )

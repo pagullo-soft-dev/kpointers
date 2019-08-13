@@ -18,8 +18,11 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.softwarementors.kpointers
+/**************************************************************************
+File generated automatically with fmgen: DO NOT modify it manually
+**************************************************************************/
 
+package com.softwarementors.kpointers
 
 import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
 import com.softwarementors.kpointers.Pointer
@@ -28,31 +31,31 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toIntPointer() : IntPointer {
+fun Pointer.toIntPointer(): IntPointer {
    return IntPointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class IntPointer(private val address : Pointer) {
-   fun toPointer() : Pointer = address
+public inline class IntPointer(private val address: Pointer) {
+   fun toPointer(): Pointer = address
 
-   var it : Int get() { assert(!isNull()); return memAccess.get(this) }
-      set(v:Int) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i : PointerOffset) : Int = memAccess.get(this + i)
-   operator fun set(i : PointerOffset, v : Int) : Unit = memAccess.put(this + i, v)
+   var it: Int get() { assert(!isNull()); return memAccess.get(this) }
+      set(v: Int) { assert(!isNull()); memAccess.put(this, v) }
+   operator fun get(i: PointerOffset): Int = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: Int): Unit = memAccess.put(this + i, v)
 
-   fun isNull() : Boolean = address == NULL
-   operator fun not() : Boolean = address == NULL
-   operator fun inc() : IntPointer = IntPointer(address + (1L*4))
-   operator fun dec() : IntPointer = IntPointer(address - (1L*4))           
-   operator fun plus(v : PointerOffset) : IntPointer = IntPointer(address + (v*4))
-   operator fun minus(v : PointerOffset) : IntPointer = IntPointer(address - (v*4))   
-   operator fun minus(v : IntPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   operator fun compareTo( p : IntPointer ) : Int = this.address.compareTo( p.address)   
+   fun isNull(): Boolean = address == NULL
+   operator fun not(): Boolean = address == NULL
+   operator fun inc(): IntPointer = IntPointer(address + (1L*4))
+   operator fun dec(): IntPointer = IntPointer(address - (1L*4))           
+   operator fun plus(v: PointerOffset): IntPointer = IntPointer(address + (v*4))
+   operator fun minus(v: PointerOffset): IntPointer = IntPointer(address - (v*4))   
+   operator fun minus(v: IntPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
+   operator fun compareTo( p: IntPointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateIntPointerArray( itemCount : Size, zeroMem : Boolean = PrimitiveArraysAllocator.zeroMem ) : IntPointer {
+fun PrimitiveArraysAllocator.allocateIntPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): IntPointer {
    assert(itemCount > 0L)
    
    val mem = this.rawAllocator.allocate( itemCount, 4L, zeroMem )
@@ -60,7 +63,7 @@ fun PrimitiveArraysAllocator.allocateIntPointerArray( itemCount : Size, zeroMem 
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray : IntPointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: IntPointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )

@@ -18,8 +18,11 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.softwarementors.kpointers
+/**************************************************************************
+File generated automatically with fmgen: DO NOT modify it manually
+**************************************************************************/
 
+package com.softwarementors.kpointers
 
 import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
 import com.softwarementors.kpointers.Pointer
@@ -28,31 +31,31 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toDoublePointer() : DoublePointer {
+fun Pointer.toDoublePointer(): DoublePointer {
    return DoublePointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class DoublePointer(private val address : Pointer) {
-   fun toPointer() : Pointer = address
+public inline class DoublePointer(private val address: Pointer) {
+   fun toPointer(): Pointer = address
 
-   var it : Double get() { assert(!isNull()); return memAccess.get(this) }
+   var it: Double get() { assert(!isNull()); return memAccess.get(this) }
       set(v: Double) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i : PointerOffset) : Double = memAccess.get(this + i)
-   operator fun set(i : PointerOffset, v : Double) : Unit = memAccess.put(this + i, v)
+   operator fun get(i: PointerOffset): Double = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: Double): Unit = memAccess.put(this + i, v)
 
-   fun isNull() : Boolean = address == NULL
-   operator fun not() : Boolean = address == NULL
-   operator fun inc() : DoublePointer = DoublePointer(address + (1L*8))
-   operator fun dec() : DoublePointer = DoublePointer(address - (1L*8))           
-   operator fun plus(v : PointerOffset) : DoublePointer = DoublePointer(address + (v*8))
-   operator fun minus(v : PointerOffset) : DoublePointer = DoublePointer(address - (v*8))   
-   operator fun minus(v : DoublePointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   operator fun compareTo( p : DoublePointer ) : Int = this.address.compareTo( p.address)   
+   fun isNull(): Boolean = address == NULL
+   operator fun not(): Boolean = address == NULL
+   operator fun inc(): DoublePointer = DoublePointer(address + (1L*8))
+   operator fun dec(): DoublePointer = DoublePointer(address - (1L*8))           
+   operator fun plus(v: PointerOffset): DoublePointer = DoublePointer(address + (v*8))
+   operator fun minus(v: PointerOffset): DoublePointer = DoublePointer(address - (v*8))   
+   operator fun minus(v: DoublePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
+   operator fun compareTo( p: DoublePointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateDoublePointerArray( itemCount : Size, zeroMem : Boolean = PrimitiveArraysAllocator.zeroMem ) : DoublePointer {
+fun PrimitiveArraysAllocator.allocateDoublePointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): DoublePointer {
    assert(itemCount > 0L)
    
    val mem = this.rawAllocator.allocate( itemCount, 8L, zeroMem )
@@ -60,7 +63,7 @@ fun PrimitiveArraysAllocator.allocateDoublePointerArray( itemCount : Size, zeroM
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray : DoublePointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: DoublePointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )

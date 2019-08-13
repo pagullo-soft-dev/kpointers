@@ -18,6 +18,10 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+/**************************************************************************
+File generated automatically with fmgen: DO NOT modify it manually
+**************************************************************************/
+
 package com.softwarementors.kpointers
 
 import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
@@ -27,31 +31,31 @@ import com.softwarementors.kpointers.NULL
 import com.softwarementors.kpointers.memAccess
 
 @kotlin.ExperimentalUnsignedTypes
-fun Pointer.toUShortPointer() : UShortPointer {
+fun Pointer.toUShortPointer(): UShortPointer {
    return UShortPointer(this)
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class UShortPointer(private val address : Pointer) {
-   fun toPointer() : Pointer = address
+public inline class UShortPointer(private val address: Pointer) {
+   fun toPointer(): Pointer = address
 
-   var it : UShort get() { assert(!isNull()); return memAccess.get(this) }
+   var it: UShort get() { assert(!isNull()); return memAccess.get(this) }
       set(v: UShort) { assert(!isNull()); memAccess.put(this, v) }
-   operator fun get(i : PointerOffset) : UShort = memAccess.get(this + i)
-   operator fun set(i : PointerOffset, v : UShort) : Unit = memAccess.put(this + i, v)
+   operator fun get(i: PointerOffset): UShort = memAccess.get(this + i)
+   operator fun set(i: PointerOffset, v: UShort): Unit = memAccess.put(this + i, v)
 
-   fun isNull() : Boolean = address == NULL
-   operator fun not() : Boolean = address == NULL
-   operator fun inc() : UShortPointer = UShortPointer(address + (1L*2))
-   operator fun dec() : UShortPointer = UShortPointer(address - (1L*2))           
-   operator fun plus(v : PointerOffset) : UShortPointer = UShortPointer(address + (v*2))
-   operator fun minus(v : PointerOffset) : UShortPointer = UShortPointer(address - (v*2))   
-   operator fun minus(v : UShortPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
-   operator fun compareTo( p : UShortPointer ) : Int = this.address.compareTo( p.address)   
+   fun isNull(): Boolean = address == NULL
+   operator fun not(): Boolean = address == NULL
+   operator fun inc(): UShortPointer = UShortPointer(address + (1L*2))
+   operator fun dec(): UShortPointer = UShortPointer(address - (1L*2))           
+   operator fun plus(v: PointerOffset): UShortPointer = UShortPointer(address + (v*2))
+   operator fun minus(v: PointerOffset): UShortPointer = UShortPointer(address - (v*2))   
+   operator fun minus(v: UShortPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
+   operator fun compareTo( p: UShortPointer ): Int = this.address.compareTo( p.address)   
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.allocateUShortPointerArray( itemCount : Size, zeroMem : Boolean = PrimitiveArraysAllocator.zeroMem ) : UShortPointer {
+fun PrimitiveArraysAllocator.allocateUShortPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): UShortPointer {
    assert(itemCount > 0L)
    
    val mem = this.rawAllocator.allocate( itemCount, 2L, zeroMem )
@@ -59,7 +63,7 @@ fun PrimitiveArraysAllocator.allocateUShortPointerArray( itemCount : Size, zeroM
 }
 
 @kotlin.ExperimentalUnsignedTypes
-fun PrimitiveArraysAllocator.free( pointerToArray : UShortPointer) {
+fun PrimitiveArraysAllocator.free( pointerToArray: UShortPointer) {
    assert(!pointerToArray.isNull())
    
    this.rawAllocator.free( pointerToArray.toPointer() )
