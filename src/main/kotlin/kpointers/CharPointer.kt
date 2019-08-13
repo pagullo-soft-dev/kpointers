@@ -47,7 +47,7 @@ public inline class CharPointer(private val address : Pointer) {
    operator fun dec() : CharPointer = CharPointer(address - (1L*2))           
    operator fun plus(v : PointerOffset) : CharPointer = CharPointer(address + (v*2))
    operator fun minus(v : PointerOffset) : CharPointer = CharPointer(address - (v*2))   
-   operator fun minus(v : CharPointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 2
+   operator fun minus(v : CharPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
    operator fun compareTo( p : CharPointer ) : Int = this.address.compareTo( p.address)   
 }
 

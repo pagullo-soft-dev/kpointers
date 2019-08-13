@@ -46,7 +46,7 @@ public inline class UBytePointer(private val address : Pointer) {
    operator fun dec() : UBytePointer = UBytePointer(address - (1L*1))           
    operator fun plus(v : PointerOffset) : UBytePointer = UBytePointer(address + (v*1))
    operator fun minus(v : PointerOffset) : UBytePointer = UBytePointer(address - (v*1))   
-   operator fun minus(v : UBytePointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 1
+   operator fun minus(v : UBytePointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
    operator fun compareTo( p : UBytePointer ) : Int = this.address.compareTo( p.address)   
 }
 

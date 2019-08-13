@@ -47,7 +47,7 @@ public inline class LongPointer(private val address : Pointer) {
    operator fun dec() : LongPointer = LongPointer(address - (1L*8))           
    operator fun plus(v : PointerOffset) : LongPointer = LongPointer(address + (v*8))
    operator fun minus(v : PointerOffset) : LongPointer = LongPointer(address - (v*8))   
-   operator fun minus(v : LongPointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 8
+   operator fun minus(v : LongPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
    operator fun compareTo( p : LongPointer ) : Int = this.address.compareTo( p.address)   
 }
 

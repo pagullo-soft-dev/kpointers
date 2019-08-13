@@ -46,7 +46,7 @@ public inline class ShortPointer(private val address : Pointer) {
    operator fun dec() : ShortPointer = ShortPointer(address - (1L*2))           
    operator fun plus(v : PointerOffset) : ShortPointer = ShortPointer(address + (v*2))
    operator fun minus(v : PointerOffset) : ShortPointer = ShortPointer(address - (v*2))   
-   operator fun minus(v : ShortPointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 2
+   operator fun minus(v : ShortPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
    operator fun compareTo( p : ShortPointer ) : Int = this.address.compareTo( p.address)   
 }
 

@@ -37,6 +37,6 @@ class UnsafeBackedAllocator : RawAllocator() {
    override fun free( mem : Pointer ) {
       assert( mem != NULL )
       
-      unsafe.freeMemory( mem.toUnsafeLongAsPointer())
+      unsafe.freeMemory( mem.toUnsafePointer())
    }
 }

@@ -29,7 +29,7 @@ import sun.misc.Unsafe;
 
 val unsafe : Unsafe = initUnsafe()
 
-internal fun initUnsafe() : Unsafe {
+private fun initUnsafe() : Unsafe {
    val f : Field = Unsafe::class.java.getDeclaredField("theUnsafe");
    f.setAccessible(true);
    return f.get(null) as Unsafe;

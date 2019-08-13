@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 'status' specifies the *internal* Log4j2 logging level
+     'advertiser=multicastdns' allows us to advertise to log viewers
+            such as Chainsaw, and requires the jmnds Java library.
+            To advertise an appender, just see how the RollingFile does.
+-->
+<Configuration monitorInterval="2" status="WARN"
+   advertiser="">
+
+  <Properties>
+    <Property name="basePackage">com.softwarementors</Property>
+
+    <!-- STANDARD CONFIGURATION PER APP/TESTS -->
+    <Property name="projectMainPackage">${basePackage}.kpointers</Property>
+    <Property name="projectName">kpointers</Property>
+    <!-- End STANDARD CONFIGURATION PER APP/TESTS -->
+
+    <Property name="customDefaulAppender">%-5level [%t] %d{DEFAULT} %equals{%x }{[] }{}%equals{%X }{&#x7B;&#x7d; }{}%equals{>>%marker&lt;&lt; }{>>&lt;&lt; }{}%logger{36} - %msg%n</Property>
+    <Property name="logFilesBaseDir">.</Property>
+    <Property name="logDir">logs/log4j2</Property>
+    <Property name="justLogFileName">${projectName}</Property>
+    <Property name="justFullLogFileName">${logFilesBaseDir}/${logDir}/${justLogFileName}</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="console" target="SYSTEM_OUT">
+      <PatternLayout pattern="${customDefaulAppender}"/>
+    </Console>
+    <File name="defaultLogFile" 
+          fileName="${justFullLogFileName}.log" 
+          bufferSize="0" bufferedIO="false"> 
+      <PatternLayout pattern="${customDefaulAppender}"/>
+    </File>     </Appenders>
+  
+  <Loggers>
+    <Root level="WARN">
+      <AppenderRef ref="console"/>
+      <AppenderRef ref="defaultLogFile"/>
+    </Root>
+    
+    <!-- Base packages -->
+    <logger name="${basePackage}" level="INFO">
+    </logger> 
+
+    <!-- App/library/test specific package -->
+    <logger name="${projectMainPackage}" level="ALL">
+    </logger>     
+  </Loggers>
+</Configuration>

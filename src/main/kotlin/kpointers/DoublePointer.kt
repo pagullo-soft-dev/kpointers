@@ -47,7 +47,7 @@ public inline class DoublePointer(private val address : Pointer) {
    operator fun dec() : DoublePointer = DoublePointer(address - (1L*8))           
    operator fun plus(v : PointerOffset) : DoublePointer = DoublePointer(address + (v*8))
    operator fun minus(v : PointerOffset) : DoublePointer = DoublePointer(address - (v*8))   
-   operator fun minus(v : DoublePointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 8
+   operator fun minus(v : DoublePointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
    operator fun compareTo( p : DoublePointer ) : Int = this.address.compareTo( p.address)   
 }
 

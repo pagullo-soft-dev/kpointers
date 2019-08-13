@@ -20,11 +20,17 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val supportEclipseJUnitWorkaround = false
+val supportEclipseJUnitRunners = true
+
 group = "com.softwarementors.${rootProject.name}"
 version = "beta-1-SNAPSHOT"
 
 val log4j2Ver = "2.11.2"
 val log4jKotlinApiVer = "1.0.0"
+val junitVer = "5.4.0"
+val junitPlatformLauncherVer = "1.4.0"
+val kotlinJunitTestRunnerVer = "3.3.2"
 
 buildscript {
    repositories {
@@ -44,6 +50,7 @@ plugins {
 
    java
    application
+   id("eclipse")   
    kotlin("jvm") version kotlinVer
    kotlin("kapt") version kotlinVer
 }
@@ -55,6 +62,44 @@ dependencies {
 
    implementation("org.apache.logging.log4j:log4j-api:$log4j2Ver")
    implementation("org.apache.logging.log4j:log4j-api-kotlin:$log4jKotlinApiVer")
+
+   // ***********************************************
+   // *** Testing
+   testCompile("org.junit.jupiter:junit-jupiter-api:$junitVer")
+   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVer")
+   testRuntimeOnly("io.kotlintest:kotlintest-runner-junit5:$kotlinJunitTestRunnerVer")
+   if( supportEclipseJUnitWorkaround) {
+      // This might not be necessary, but we are having trouble with Eclipse + JUnit
+      testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVer") 
+   }
+   if( supportEclipseJUnitRunners) {
+      // Eclipse needs this -maybe for JUnit?
+      testRuntimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Ver")
+   }
+
+   /*
+   testImplementation("org.junit.jupiter:junit-jupiter:$junitVer")
+   testRuntime("org.junit.platform:junit-platform-launcher:$junitPlatformLauncherVer") 
+   */
+   val usingLog4jXmlAppenders = true
+      if (usingLog4jXmlAppenders) {
+         val jacksonVer = "2.9.9"
+         // Required for log4j2, *only* when we use XMLLayout
+         testRuntimeOnly("com.fasterxml.jackson.core:jackson-core:$jacksonVer")
+         testRuntimeOnly("com.fasterxml.jackson.core:jackson-databind:$jacksonVer")
+         testRuntimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVer")
+      }   
+}
+
+if( supportEclipseJUnitWorkaround ) {
+   eclipse {
+      classpath {
+         file {
+            // This might not be necessary, but we are having trouble with Gradle + JUnit in Eclipse :(
+            containers( "org.eclipse.jdt.junit.JUNIT_CONTAINER/5")
+         }
+      }
+   }
 }
 
 // List of examples: we create a runXxx task to run every example
@@ -95,4 +140,19 @@ tasks {
       gradleVersion = "5.5.1"
    }
 
+   withType(Test::class) {
+      useJUnitPlatform() // This is needed, just adding the JUnit jars is not enough
+      testLogging {
+         // outputs.upToDateWhen {true} // Forces test execution even if last time they worked *and* project is up to date since then
+         events("PASSED", "FAILED", "SKIPPED"
+                // ,"STARTED"       // Show log when test starts
+                // ,"STANDARD_ERROR" // Show System.err output inside tests
+                // ,"STANDARD_OUT"    // Show System.out output inside tests
+         )
+         // Must follow the events property assignment!
+         showStandardStreams = false
+         showStackTraces = true
+         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.SHORT // FULL for complete stack trace
+      }
+   }
 }

@@ -22,7 +22,7 @@ package com.softwarementors.kpointers
 
 val NULL = Pointer(UNSAFE_NULL)
 public inline class Pointer(private val address : Long) {
-   fun toUnsafeLongAsPointer() : Long = address
+   fun toUnsafePointer() : Long = address
 
    fun isNull() : Boolean = address == UNSAFE_NULL
    operator fun not() : Boolean = address == UNSAFE_NULL

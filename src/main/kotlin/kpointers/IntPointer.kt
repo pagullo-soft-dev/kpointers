@@ -47,7 +47,7 @@ public inline class IntPointer(private val address : Pointer) {
    operator fun dec() : IntPointer = IntPointer(address - (1L*4))           
    operator fun plus(v : PointerOffset) : IntPointer = IntPointer(address + (v*4))
    operator fun minus(v : PointerOffset) : IntPointer = IntPointer(address - (v*4))   
-   operator fun minus(v : IntPointer) : PointerOffset = (address.toUnsafeLongAsPointer() - v.address.toUnsafeLongAsPointer()) / 4
+   operator fun minus(v : IntPointer) : PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
    operator fun compareTo( p : IntPointer ) : Int = this.address.compareTo( p.address)   
 }
 

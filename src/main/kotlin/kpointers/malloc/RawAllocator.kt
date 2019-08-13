@@ -35,6 +35,6 @@ abstract class RawAllocator() {
    abstract fun free( mem : Pointer)
    
    protected fun zeroFill( mem : Pointer, memSize : Size ) {
-      unsafe.setMemory(mem.toUnsafeLongAsPointer(), memSize.toLong(), 0) 
+      unsafe.setMemory(mem.toUnsafePointer(), memSize.toLong(), 0) 
    } 
 }

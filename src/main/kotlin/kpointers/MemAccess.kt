@@ -28,102 +28,102 @@ internal val memAccess : MemAccess = MemAccess(unsafe)
 @kotlin.ExperimentalUnsignedTypes
 internal class MemAccess(private val unsafe : sun.misc.Unsafe) {
    fun get(address : BytePointer) : Byte {
-      val r = unsafe.getByte( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getByte( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : BytePointer, v : Byte) : Unit {
-      unsafe.putByte( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putByte( address.toPointer().toUnsafePointer(), v)
    }
 
    fun get(address : UBytePointer) : UByte {
-      val r = unsafe.getByte( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getByte( address.toPointer().toUnsafePointer())
       return r.toUByte()
    }
 
    fun put(address : UBytePointer, v : UByte) : Unit {
-      unsafe.putByte( address.toPointer().toUnsafeLongAsPointer(), v.toByte())
+      unsafe.putByte( address.toPointer().toUnsafePointer(), v.toByte())
    }
 
    fun get(address : CharPointer) : Char {
-      val r = unsafe.getChar( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getChar( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : CharPointer, v : Char) : Unit {
-      unsafe.putChar( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putChar( address.toPointer().toUnsafePointer(), v)
    }
 
    fun get(address : ShortPointer) : Short {
-      val r = unsafe.getShort( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getShort( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : ShortPointer, v : Short) : Unit {
-      unsafe.putShort( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putShort( address.toPointer().toUnsafePointer(), v)
    }
 
    fun get(address : UShortPointer) : UShort {
-      val r = unsafe.getShort( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getShort( address.toPointer().toUnsafePointer())
       return r.toUShort()
    }
 
    fun put(address : UShortPointer, v : UShort) : Unit {
-      unsafe.putShort( address.toPointer().toUnsafeLongAsPointer(), v.toShort())
+      unsafe.putShort( address.toPointer().toUnsafePointer(), v.toShort())
    }
    
    fun get(address : IntPointer) : Int {
-      val r = unsafe.getInt( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getInt( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : IntPointer, v : Int) : Unit {
-      unsafe.putInt( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putInt( address.toPointer().toUnsafePointer(), v)
    }
    
    fun get(address : UIntPointer) : UInt {
-      val r = unsafe.getInt( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getInt( address.toPointer().toUnsafePointer())
       return r.toUInt()
    }
 
    fun put(address : UIntPointer, v : UInt) : Unit {
-      unsafe.putInt( address.toPointer().toUnsafeLongAsPointer(), v.toInt())
+      unsafe.putInt( address.toPointer().toUnsafePointer(), v.toInt())
    }
 
    fun get(address : LongPointer) : Long {
-      val r = unsafe.getLong( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getLong( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : LongPointer, v : Long) : Unit {
-      unsafe.putLong( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putLong( address.toPointer().toUnsafePointer(), v)
    }
 
    fun get(address : ULongPointer) : ULong {
-      val r = unsafe.getLong( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getLong( address.toPointer().toUnsafePointer())
       return r.toULong()
    }
 
    fun put(address : ULongPointer, v : ULong) : Unit {
-      unsafe.putLong( address.toPointer().toUnsafeLongAsPointer(), v.toLong())
+      unsafe.putLong( address.toPointer().toUnsafePointer(), v.toLong())
    }
 
    fun get(address : FloatPointer) : Float {
-      val r = unsafe.getFloat( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getFloat( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : FloatPointer, v : Float) : Unit {
-      unsafe.putFloat( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putFloat( address.toPointer().toUnsafePointer(), v)
    }
 
    fun get(address : DoublePointer) : Double {
-      val r = unsafe.getDouble( address.toPointer().toUnsafeLongAsPointer())
+      val r = unsafe.getDouble( address.toPointer().toUnsafePointer())
       return r
    }
 
    fun put(address : DoublePointer, v : Double) : Unit {
-      unsafe.putDouble( address.toPointer().toUnsafeLongAsPointer(), v)
+      unsafe.putDouble( address.toPointer().toUnsafePointer(), v)
    }
 
 }

@@ -20,9 +20,11 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.softwarementors.kpointers.malloc
 
+val unsafeAllocator = PrimitiveArraysAllocator.unsafeAllocator
+
 class PrimitiveArraysAllocator( internal val rawAllocator : RawAllocator) {
    companion object {
       val zeroMem = RawAllocator.zeroMem
-      val unsafeAllocator = PrimitiveArraysAllocator(UnsafeBackedAllocator())
+      internal val unsafeAllocator = PrimitiveArraysAllocator(UnsafeBackedAllocator())
    }
 }
