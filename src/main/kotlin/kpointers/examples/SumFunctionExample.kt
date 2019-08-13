@@ -32,7 +32,7 @@ fun main( args : Array<String> ) {
    val itemsCount : Long = 32L * _1MB // 256 MB 
    val memMBSize = itemsCount * Long.SIZE_BYTES / (1024*1024)
 
-   println( "${com.softwarementors.kpointers.title}" )
+   println( title )
    println( "Example: implementing a Sum function to add all Longs in $memMBSize MB of raw allocated memory")
    println()
    

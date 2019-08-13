@@ -26,7 +26,7 @@ import com.softwarementors.kpointers.*
 
 @kotlin.ExperimentalUnsignedTypes
 fun main( args : Array<String> ) {
-   println( "${com.softwarementors.kpointers.title}" )
+   println( title )
    println( "Example: typical pointer operations by CharPointer, a C-like char* equivalent in Kotlin")
    println()
    
