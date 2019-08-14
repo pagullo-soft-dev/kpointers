@@ -41,6 +41,7 @@ buildscript {
 
 repositories {
    jcenter()
+   mavenLocal()
    mavenCentral()
 }
 
@@ -48,12 +49,32 @@ repositories {
 plugins {
    val kotlinVer = "1.3.41"
 
+   `maven-publish`
    java
    application
    id("eclipse")   
    kotlin("jvm") version kotlinVer
    kotlin("kapt") version kotlinVer
 }
+
+val sourcesJar by tasks.registering(Jar::class) {
+    classifier = "sources"
+    from(sourceSets.main.get().allSource)
+}
+
+publishing {
+   repositories {
+      mavenLocal()
+   }
+   publications {
+      register("mavenJava", MavenPublication::class) {
+         from(components["java"])
+         artifact(sourcesJar.get())
+      }
+   }
+}
+
+
 
 dependencies {
    implementation(kotlin("stdlib-jdk8"))

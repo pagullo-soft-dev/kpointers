@@ -4,6 +4,8 @@
 
 - Publish blog about KPointers in personal blog
 
+- Cleanup: add all possible assertions and checks
+
 ## Important
 
 - Doc: document need to refresh Gradle config from Eclipse after getting project from repo (.classpaht and .project must be regenerated)

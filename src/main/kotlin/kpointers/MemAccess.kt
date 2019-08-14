@@ -27,6 +27,19 @@ internal val memAccess : MemAccess = MemAccess(unsafe)
 
 @kotlin.ExperimentalUnsignedTypes
 internal class MemAccess(private val unsafe : sun.misc.Unsafe) {
+   fun get(address : BooleanPointer) : Boolean {
+      val r = unsafe.getByte( address.toPointer().toUnsafePointer())
+      return r == 0.toByte()
+   }
+
+   fun put(address : BooleanPointer, v : Boolean) : Unit {
+      var bv = 0.toByte()
+      if( v ) {
+         bv = 1
+      }
+      unsafe.putByte( address.toPointer().toUnsafePointer(), bv)
+   }
+
    fun get(address : BytePointer) : Byte {
       val r = unsafe.getByte( address.toPointer().toUnsafePointer())
       return r
