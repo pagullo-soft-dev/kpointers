@@ -21,7 +21,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.softwarementors.kpointers.examples
 
 import com.softwarementors.kpointers.malloc.UnsafeBackedAllocator
-import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
+import com.softwarementors.kpointers.PrimitiveArraysAllocator
 import com.softwarementors.kpointers.*
 import java.time.LocalDateTime
 import java.time.Duration

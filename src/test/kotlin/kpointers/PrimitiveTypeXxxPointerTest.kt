@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.AfterEach
-import com.softwarementors.kpointers.malloc.unsafeAllocator
+import com.softwarementors.kpointers.unsafeAllocator
 import com.softwarementors.kpointers.impl.unsafe
 
 @kotlin.ExperimentalUnsignedTypes

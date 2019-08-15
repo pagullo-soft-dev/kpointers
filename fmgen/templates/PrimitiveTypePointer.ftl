@@ -24,7 +24,7 @@ File generated automatically with fmgen: DO NOT modify it manually
 
 package com.softwarementors.kpointers
 
-import com.softwarementors.kpointers.malloc.PrimitiveArraysAllocator
+import com.softwarementors.kpointers.PrimitiveArraysAllocator
 import com.softwarementors.kpointers.Pointer
 import com.softwarementors.kpointers.PointerOffset
 import com.softwarementors.kpointers.NULL

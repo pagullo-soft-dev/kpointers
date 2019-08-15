@@ -18,13 +18,16 @@ along with this program; if not, write to the Free Software Foundation,
 Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.softwarementors.kpointers.malloc
+package com.softwarementors.kpointers
+
+import com.softwarementors.kpointers.malloc.RawAllocator
+import com.softwarementors.kpointers.malloc.UnsafeBackedAllocator
 
 val unsafeAllocator = PrimitiveArraysAllocator.unsafeAllocator
 
 class PrimitiveArraysAllocator( internal val rawAllocator : RawAllocator) {
    companion object {
       val zeroMem = RawAllocator.zeroMem
-      internal val unsafeAllocator = PrimitiveArraysAllocator(UnsafeBackedAllocator())
+      val unsafeAllocator = PrimitiveArraysAllocator(UnsafeBackedAllocator())
    }
 }
