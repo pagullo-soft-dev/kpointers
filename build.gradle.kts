@@ -24,7 +24,7 @@ val supportEclipseJUnitWorkaround = false
 val supportEclipseJUnitRunners = true
 
 group = "com.softwarementors.${rootProject.name}"
-version = "beta-1-SNAPSHOT"
+version = "alpha-1-SNAPSHOT"
 
 val log4j2Ver = "2.11.2"
 val log4jKotlinApiVer = "1.0.0"
@@ -162,7 +162,7 @@ tasks {
          // Must follow the events property assignment!
          showStandardStreams = false
          showStackTraces = true
-         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.SHORT // FULL for complete stack trace
+         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL // FULL for complete stack trace
       }
    }
 }
