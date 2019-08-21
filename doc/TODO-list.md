@@ -6,6 +6,8 @@
 
 ## Important
 
+- Add read-only pointers
+
 - Implement speed tests for JMH: prove pointers are as fast or faster than using arrays.
 
 - Publish to JCenter repository: see [https://reflectoring.io/bintray-jcenter-maven-central/](https://reflectoring.io/bintray-jcenter-maven-central/)

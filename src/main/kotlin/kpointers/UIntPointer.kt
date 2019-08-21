@@ -36,7 +36,7 @@ fun Pointer.toUIntPointer(): UIntPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class UIntPointer(private val address: Pointer) {
+public inline class UIntPointer(private val address: Pointer): Comparable<UIntPointer> {
    fun toPointer(): Pointer = address
 
    var it: UInt get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class UIntPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): UIntPointer = UIntPointer(address + (v*4))
    operator fun minus(v: PointerOffset): UIntPointer = UIntPointer(address - (v*4))   
    operator fun minus(v: UIntPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   operator fun compareTo( p: UIntPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: UIntPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class UIntPointerIterator (val begin : UIntPointer, val end: UIntPointer): Iterator<UInt>
+{
+   private var current: UIntPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): UInt {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateUIntPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): UIntPointer {

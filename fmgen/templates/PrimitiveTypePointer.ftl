@@ -36,7 +36,7 @@ fun Pointer.to${primitive_type}Pointer(): ${primitive_type}Pointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class ${primitive_type}Pointer(private val address: Pointer) {
+public inline class ${primitive_type}Pointer(private val address: Pointer): Comparable<${primitive_type}Pointer> {
    fun toPointer(): Pointer = address
 
    var it: ${primitive_type} get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class ${primitive_type}Pointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address + (v*${size_bytes}))
    operator fun minus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address - (v*${size_bytes}))   
    operator fun minus(v: ${primitive_type}Pointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / ${size_bytes}
-   operator fun compareTo( p: ${primitive_type}Pointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: ${primitive_type}Pointer ): Int = this.address.compareTo( p.address)   
 }
+
+class ${primitive_type}PointerIterator (val begin : ${primitive_type}Pointer, val end: ${primitive_type}Pointer): Iterator<${primitive_type}>
+{
+   private var current: ${primitive_type}Pointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): ${primitive_type} {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocate${primitive_type}PointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): ${primitive_type}Pointer {

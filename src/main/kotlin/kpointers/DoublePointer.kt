@@ -36,7 +36,7 @@ fun Pointer.toDoublePointer(): DoublePointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class DoublePointer(private val address: Pointer) {
+public inline class DoublePointer(private val address: Pointer): Comparable<DoublePointer> {
    fun toPointer(): Pointer = address
 
    var it: Double get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class DoublePointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): DoublePointer = DoublePointer(address + (v*8))
    operator fun minus(v: PointerOffset): DoublePointer = DoublePointer(address - (v*8))   
    operator fun minus(v: DoublePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   operator fun compareTo( p: DoublePointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: DoublePointer ): Int = this.address.compareTo( p.address)   
 }
+
+class DoublePointerIterator (val begin : DoublePointer, val end: DoublePointer): Iterator<Double>
+{
+   private var current: DoublePointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): Double {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateDoublePointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): DoublePointer {

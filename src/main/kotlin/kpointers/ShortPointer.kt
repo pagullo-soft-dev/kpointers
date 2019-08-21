@@ -36,7 +36,7 @@ fun Pointer.toShortPointer(): ShortPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class ShortPointer(private val address: Pointer) {
+public inline class ShortPointer(private val address: Pointer): Comparable<ShortPointer> {
    fun toPointer(): Pointer = address
 
    var it: Short get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class ShortPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): ShortPointer = ShortPointer(address + (v*2))
    operator fun minus(v: PointerOffset): ShortPointer = ShortPointer(address - (v*2))   
    operator fun minus(v: ShortPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
-   operator fun compareTo( p: ShortPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: ShortPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class ShortPointerIterator (val begin : ShortPointer, val end: ShortPointer): Iterator<Short>
+{
+   private var current: ShortPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): Short {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateShortPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): ShortPointer {

@@ -36,7 +36,7 @@ fun Pointer.toUBytePointer(): UBytePointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class UBytePointer(private val address: Pointer) {
+public inline class UBytePointer(private val address: Pointer): Comparable<UBytePointer> {
    fun toPointer(): Pointer = address
 
    var it: UByte get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class UBytePointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): UBytePointer = UBytePointer(address + (v*1))
    operator fun minus(v: PointerOffset): UBytePointer = UBytePointer(address - (v*1))   
    operator fun minus(v: UBytePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
-   operator fun compareTo( p: UBytePointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: UBytePointer ): Int = this.address.compareTo( p.address)   
 }
+
+class UBytePointerIterator (val begin : UBytePointer, val end: UBytePointer): Iterator<UByte>
+{
+   private var current: UBytePointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): UByte {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateUBytePointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): UBytePointer {

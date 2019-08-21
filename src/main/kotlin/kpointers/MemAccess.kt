@@ -23,10 +23,10 @@ package com.softwarementors.kpointers
 import com.softwarementors.kpointers.impl.unsafe
 
 @kotlin.ExperimentalUnsignedTypes
-internal val memAccess : MemAccess = MemAccess(unsafe)
+val memAccess : MemAccess = MemAccess(unsafe)
 
 @kotlin.ExperimentalUnsignedTypes
-internal class MemAccess(private val unsafe : sun.misc.Unsafe) {
+class MemAccess(private val unsafe : sun.misc.Unsafe) {
    fun get(address : BooleanPointer) : Boolean {
       val r = unsafe.getByte( address.toPointer().toUnsafePointer())
       return r == 0.toByte()

@@ -36,7 +36,7 @@ fun Pointer.toULongPointer(): ULongPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class ULongPointer(private val address: Pointer) {
+public inline class ULongPointer(private val address: Pointer): Comparable<ULongPointer> {
    fun toPointer(): Pointer = address
 
    var it: ULong get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class ULongPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): ULongPointer = ULongPointer(address + (v*8))
    operator fun minus(v: PointerOffset): ULongPointer = ULongPointer(address - (v*8))   
    operator fun minus(v: ULongPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   operator fun compareTo( p: ULongPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: ULongPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class ULongPointerIterator (val begin : ULongPointer, val end: ULongPointer): Iterator<ULong>
+{
+   private var current: ULongPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): ULong {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateULongPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): ULongPointer {

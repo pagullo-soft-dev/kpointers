@@ -36,7 +36,7 @@ fun Pointer.toFloatPointer(): FloatPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class FloatPointer(private val address: Pointer) {
+public inline class FloatPointer(private val address: Pointer): Comparable<FloatPointer> {
    fun toPointer(): Pointer = address
 
    var it: Float get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class FloatPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): FloatPointer = FloatPointer(address + (v*4))
    operator fun minus(v: PointerOffset): FloatPointer = FloatPointer(address - (v*4))   
    operator fun minus(v: FloatPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   operator fun compareTo( p: FloatPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: FloatPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class FloatPointerIterator (val begin : FloatPointer, val end: FloatPointer): Iterator<Float>
+{
+   private var current: FloatPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): Float {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateFloatPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): FloatPointer {

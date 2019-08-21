@@ -36,7 +36,7 @@ fun Pointer.toCharPointer(): CharPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class CharPointer(private val address: Pointer) {
+public inline class CharPointer(private val address: Pointer): Comparable<CharPointer> {
    fun toPointer(): Pointer = address
 
    var it: Char get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class CharPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): CharPointer = CharPointer(address + (v*2))
    operator fun minus(v: PointerOffset): CharPointer = CharPointer(address - (v*2))   
    operator fun minus(v: CharPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
-   operator fun compareTo( p: CharPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: CharPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class CharPointerIterator (val begin : CharPointer, val end: CharPointer): Iterator<Char>
+{
+   private var current: CharPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): Char {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateCharPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): CharPointer {

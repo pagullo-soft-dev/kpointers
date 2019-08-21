@@ -36,7 +36,7 @@ fun Pointer.toBooleanPointer(): BooleanPointer {
 }
 
 @kotlin.ExperimentalUnsignedTypes
-public inline class BooleanPointer(private val address: Pointer) {
+public inline class BooleanPointer(private val address: Pointer): Comparable<BooleanPointer> {
    fun toPointer(): Pointer = address
 
    var it: Boolean get() { assert(!isNull()); return memAccess.get(this) }
@@ -51,8 +51,29 @@ public inline class BooleanPointer(private val address: Pointer) {
    operator fun plus(v: PointerOffset): BooleanPointer = BooleanPointer(address + (v*1))
    operator fun minus(v: PointerOffset): BooleanPointer = BooleanPointer(address - (v*1))   
    operator fun minus(v: BooleanPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
-   operator fun compareTo( p: BooleanPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( p: BooleanPointer ): Int = this.address.compareTo( p.address)   
 }
+
+class BooleanPointerIterator (val begin : BooleanPointer, val end: BooleanPointer): Iterator<Boolean>
+{
+   private var current: BooleanPointer = begin
+   
+   init {
+      assert( begin <= end)
+   }
+   
+   override fun hasNext(): Boolean {
+      return current < end
+   }
+ 
+   override fun next(): Boolean {
+      val v = current.it
+      current++
+         return v
+   }   
+}
+
+
 
 @kotlin.ExperimentalUnsignedTypes
 fun PrimitiveArraysAllocator.allocateBooleanPointerArray( itemCount: Size, zeroMem: Boolean = PrimitiveArraysAllocator.zeroMem ): BooleanPointer {
