@@ -51,9 +51,10 @@ public inline class CharPointer(private val address: Pointer): Comparable<CharPo
    operator fun plus(v: PointerOffset): CharPointer = CharPointer(address + (v*2))
    operator fun minus(v: PointerOffset): CharPointer = CharPointer(address - (v*2))   
    operator fun minus(v: CharPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
-   override operator fun compareTo( p: CharPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: CharPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class CharPointerIterator (val begin : CharPointer, val end: CharPointer): Iterator<Char>
 {
    private var current: CharPointer = begin
@@ -72,7 +73,6 @@ class CharPointerIterator (val begin : CharPointer, val end: CharPointer): Itera
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

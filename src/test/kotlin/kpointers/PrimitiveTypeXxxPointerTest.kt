@@ -158,5 +158,19 @@ class PrimitiveTypeXxxPointerTest {
       }
    }
    
-   
+   @Test
+   fun test_XxxPointerIterator_iteratesForCorrectRange() {
+      val it = allocArray100()
+      val start = toPtrTypeUnderTest(it)
+      start[0] = 1L
+      start[1] = 2L
+      start[2] = 3L
+      var i = 1L
+      for( v in LongPointerIterator(start, start+3)) {
+         assertEquals( i, v)
+         assertTrue( i >= 1L && i <= 3L)
+         i++
+      }
+   }
+  
 }

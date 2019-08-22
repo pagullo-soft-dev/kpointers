@@ -51,9 +51,10 @@ public inline class BytePointer(private val address: Pointer): Comparable<BytePo
    operator fun plus(v: PointerOffset): BytePointer = BytePointer(address + (v*1))
    operator fun minus(v: PointerOffset): BytePointer = BytePointer(address - (v*1))   
    operator fun minus(v: BytePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
-   override operator fun compareTo( p: BytePointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: BytePointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class BytePointerIterator (val begin : BytePointer, val end: BytePointer): Iterator<Byte>
 {
    private var current: BytePointer = begin
@@ -72,7 +73,6 @@ class BytePointerIterator (val begin : BytePointer, val end: BytePointer): Itera
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

@@ -51,9 +51,10 @@ public inline class ShortPointer(private val address: Pointer): Comparable<Short
    operator fun plus(v: PointerOffset): ShortPointer = ShortPointer(address + (v*2))
    operator fun minus(v: PointerOffset): ShortPointer = ShortPointer(address - (v*2))   
    operator fun minus(v: ShortPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 2
-   override operator fun compareTo( p: ShortPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: ShortPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class ShortPointerIterator (val begin : ShortPointer, val end: ShortPointer): Iterator<Short>
 {
    private var current: ShortPointer = begin
@@ -72,7 +73,6 @@ class ShortPointerIterator (val begin : ShortPointer, val end: ShortPointer): It
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

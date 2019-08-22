@@ -51,9 +51,10 @@ public inline class BooleanPointer(private val address: Pointer): Comparable<Boo
    operator fun plus(v: PointerOffset): BooleanPointer = BooleanPointer(address + (v*1))
    operator fun minus(v: PointerOffset): BooleanPointer = BooleanPointer(address - (v*1))   
    operator fun minus(v: BooleanPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 1
-   override operator fun compareTo( p: BooleanPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: BooleanPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class BooleanPointerIterator (val begin : BooleanPointer, val end: BooleanPointer): Iterator<Boolean>
 {
    private var current: BooleanPointer = begin
@@ -72,7 +73,6 @@ class BooleanPointerIterator (val begin : BooleanPointer, val end: BooleanPointe
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

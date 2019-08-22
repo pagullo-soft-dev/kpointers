@@ -29,7 +29,7 @@ val memAccess : MemAccess = MemAccess(unsafe)
 class MemAccess(private val unsafe : sun.misc.Unsafe) {
    fun get(address : BooleanPointer) : Boolean {
       val r = unsafe.getByte( address.toPointer().toUnsafePointer())
-      return r == 0.toByte()
+      return r != 0.toByte()
    }
 
    fun put(address : BooleanPointer, v : Boolean) : Unit {

@@ -51,9 +51,10 @@ public inline class ULongPointer(private val address: Pointer): Comparable<ULong
    operator fun plus(v: PointerOffset): ULongPointer = ULongPointer(address + (v*8))
    operator fun minus(v: PointerOffset): ULongPointer = ULongPointer(address - (v*8))   
    operator fun minus(v: ULongPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   override operator fun compareTo( p: ULongPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: ULongPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class ULongPointerIterator (val begin : ULongPointer, val end: ULongPointer): Iterator<ULong>
 {
    private var current: ULongPointer = begin
@@ -72,7 +73,6 @@ class ULongPointerIterator (val begin : ULongPointer, val end: ULongPointer): It
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

@@ -51,9 +51,10 @@ public inline class DoublePointer(private val address: Pointer): Comparable<Doub
    operator fun plus(v: PointerOffset): DoublePointer = DoublePointer(address + (v*8))
    operator fun minus(v: PointerOffset): DoublePointer = DoublePointer(address - (v*8))   
    operator fun minus(v: DoublePointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 8
-   override operator fun compareTo( p: DoublePointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: DoublePointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class DoublePointerIterator (val begin : DoublePointer, val end: DoublePointer): Iterator<Double>
 {
    private var current: DoublePointer = begin
@@ -72,7 +73,6 @@ class DoublePointerIterator (val begin : DoublePointer, val end: DoublePointer):
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

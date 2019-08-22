@@ -51,9 +51,10 @@ public inline class ${primitive_type}Pointer(private val address: Pointer): Comp
    operator fun plus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address + (v*${size_bytes}))
    operator fun minus(v: PointerOffset): ${primitive_type}Pointer = ${primitive_type}Pointer(address - (v*${size_bytes}))   
    operator fun minus(v: ${primitive_type}Pointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / ${size_bytes}
-   override operator fun compareTo( p: ${primitive_type}Pointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: ${primitive_type}Pointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class ${primitive_type}PointerIterator (val begin : ${primitive_type}Pointer, val end: ${primitive_type}Pointer): Iterator<${primitive_type}>
 {
    private var current: ${primitive_type}Pointer = begin
@@ -72,7 +73,6 @@ class ${primitive_type}PointerIterator (val begin : ${primitive_type}Pointer, va
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

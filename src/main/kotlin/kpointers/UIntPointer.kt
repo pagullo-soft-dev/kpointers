@@ -51,9 +51,10 @@ public inline class UIntPointer(private val address: Pointer): Comparable<UIntPo
    operator fun plus(v: PointerOffset): UIntPointer = UIntPointer(address + (v*4))
    operator fun minus(v: PointerOffset): UIntPointer = UIntPointer(address - (v*4))   
    operator fun minus(v: UIntPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   override operator fun compareTo( p: UIntPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: UIntPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class UIntPointerIterator (val begin : UIntPointer, val end: UIntPointer): Iterator<UInt>
 {
    private var current: UIntPointer = begin
@@ -72,7 +73,6 @@ class UIntPointerIterator (val begin : UIntPointer, val end: UIntPointer): Itera
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes

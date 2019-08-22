@@ -51,9 +51,10 @@ public inline class FloatPointer(private val address: Pointer): Comparable<Float
    operator fun plus(v: PointerOffset): FloatPointer = FloatPointer(address + (v*4))
    operator fun minus(v: PointerOffset): FloatPointer = FloatPointer(address - (v*4))   
    operator fun minus(v: FloatPointer): PointerOffset = (address.toUnsafePointer() - v.address.toUnsafePointer()) / 4
-   override operator fun compareTo( p: FloatPointer ): Int = this.address.compareTo( p.address)   
+   override operator fun compareTo( other: FloatPointer ): Int = this.address.compareTo( other.address)   
 }
 
+@kotlin.ExperimentalUnsignedTypes
 class FloatPointerIterator (val begin : FloatPointer, val end: FloatPointer): Iterator<Float>
 {
    private var current: FloatPointer = begin
@@ -72,7 +73,6 @@ class FloatPointerIterator (val begin : FloatPointer, val end: FloatPointer): It
          return v
    }   
 }
-
 
 
 @kotlin.ExperimentalUnsignedTypes
